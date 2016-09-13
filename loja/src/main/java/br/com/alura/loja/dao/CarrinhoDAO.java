@@ -4,9 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
+import javax.annotation.ManagedBean;
+
 import br.com.alura.loja.modelo.Carrinho;
 import br.com.alura.loja.modelo.Produto;
 
+@ManagedBean
 public class CarrinhoDAO {
 	
 	private static Map<Long, Carrinho> banco = new HashMap<Long, Carrinho>();
@@ -18,7 +21,7 @@ public class CarrinhoDAO {
 		Carrinho carrinho = new Carrinho()
 								.adiciona(videogame)
 								.adiciona(esporte)
-								.para("Rua Vergueiro 3185, 8 andar", "S‹o Paulo")
+								.para("Rua Vergueiro 3185, 8 andar", "Sï¿½o Paulo")
 								.setId(1l);
 		banco.put(1l, carrinho);
 	}

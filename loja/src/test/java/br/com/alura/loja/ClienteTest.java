@@ -25,7 +25,6 @@ public class ClienteTest {
 		String conteudo = target.path("/v2/52aaf5deee7ba8c70329fb7d").request().get(String.class);
 		
 		Assert.assertTrue(conteudo.contains("<rua>Rua Vergueiro 3185"));
-		
 	}
 	
 }
