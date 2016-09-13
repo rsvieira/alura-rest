@@ -24,8 +24,6 @@ public class CarrinhoResource {
 		
 		Carrinho carrinho = carrinhoDAO.busca(1L);
 		
-		System.out.println(carrinho.toXml());
-		
 		return carrinho.toXml();
 	}
 	

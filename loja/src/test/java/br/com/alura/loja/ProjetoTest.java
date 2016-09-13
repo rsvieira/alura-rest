@@ -4,8 +4,15 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 
+import org.glassfish.grizzly.http.server.HttpServer;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+
+import com.thoughtworks.xstream.XStream;
+
+import br.com.alura.loja.modelo.Projeto;
 
 /**
  * @author Ramon Vieira
@@ -14,6 +21,19 @@ import org.junit.Test;
 
 public class ProjetoTest {
 
+	private HttpServer server;
+	
+	@Before
+	public void startaServidor(){
+		server = Servidor.inicializaServidor();
+	}
+	
+	@After
+	public void paraServidor(){
+		System.out.println("parando o Servidor...");
+		server.stop();
+	}
+	
 	@Test
 	public void testaUrlProjetos(){
 		
@@ -23,8 +43,9 @@ public class ProjetoTest {
 		
 		String conteudo = target.path("/projetos").request().get(String.class);
 		
-		Assert.assertTrue(conteudo.contains("<anoDeInicio>2014"));
+		Projeto projeto = (Projeto) new XStream().fromXML(conteudo);
 		
+		Assert.assertEquals("Minha loja", projeto.getNome());
 	}
 	
 	
