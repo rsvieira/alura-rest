@@ -15,7 +15,10 @@ import org.glassfish.jersey.server.ResourceConfig;
 public class Servidor {
 	
 	public static void main(String[] args) throws IOException {
-		
+		HttpServer server = inicializaServidor();
+		System.in.read();
+		System.out.println("Parando o Servidor...");
+		server.stop();
 	}
 
 	public static HttpServer inicializaServidor() {
