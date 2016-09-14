@@ -1,5 +1,6 @@
 package br.com.alura.loja.modelo;
 
+import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
 
 /**
@@ -43,11 +44,12 @@ public class Projeto {
 		this.nome = nome;
 	}
 	
-	public String toXml(){
-		
-		XStream stream = new XStream();
-		
-		return stream.toXML(this);
+	public String toXML(){
+		return new XStream().toXML(this);
+	}
+	
+	public String toJSON(){
+		return new Gson().toJson(this);
 	}
 	
 }
