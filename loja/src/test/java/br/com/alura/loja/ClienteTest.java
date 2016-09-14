@@ -2,7 +2,10 @@ package br.com.alura.loja;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.junit.After;
@@ -44,6 +47,26 @@ public class ClienteTest {
 		Carrinho carrinho = (Carrinho) new XStream().fromXML(conteudo);
 		
 		Assert.assertEquals("Rua Vergueiro 3185, 8 andar", carrinho.getRua());
+		
+	}
+	
+	@Test
+	public void testandoPOST () {
+		
+		Client client = ClientBuilder.newClient();
+		WebTarget target = client.target("http://localhost:8080");
+		
+		Carrinho carrinho = new Carrinho();
+		carrinho.setId(3L);
+		carrinho.setCidade("Salvador");
+		carrinho.setRua("Rua Silveira Martins");
+		
+		String xml = carrinho.toXML();
+
+		Entity<String> entity = Entity.entity(xml, MediaType.APPLICATION_XML);
+
+        Response response = target.path("/carrinhos").request().post(entity);
+        Assert.assertEquals("<status>Sucess</status>", response.readEntity(String.class));
 		
 	}
 	

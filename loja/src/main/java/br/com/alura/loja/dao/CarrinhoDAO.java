@@ -4,12 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
-import javax.annotation.ManagedBean;
-
 import br.com.alura.loja.modelo.Carrinho;
 import br.com.alura.loja.modelo.Produto;
 
-@ManagedBean
 public class CarrinhoDAO {
 	
 	private static Map<Long, Carrinho> banco = new HashMap<Long, Carrinho>();
