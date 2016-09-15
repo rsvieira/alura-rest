@@ -64,9 +64,14 @@ public class ClienteTest {
 		String xml = carrinho.toXML();
 
 		Entity<String> entity = Entity.entity(xml, MediaType.APPLICATION_XML);
+		Response response = target.path("/carrinhos").request().post(entity);
+        
+        Assert.assertEquals(201, response.getStatus());
 
-        Response response = target.path("/carrinhos").request().post(entity);
-        Assert.assertEquals("<status>Sucess</status>", response.readEntity(String.class));
+        String location = response.getHeaderString("Location");
+        String conteudo = client.target(location).request().get(String.class);
+        
+        Assert.assertTrue(conteudo.contains("Salvador"));
 		
 	}
 	

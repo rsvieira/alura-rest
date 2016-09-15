@@ -15,7 +15,6 @@ import org.junit.Test;
 
 import com.thoughtworks.xstream.XStream;
 
-import br.com.alura.loja.modelo.Carrinho;
 import br.com.alura.loja.modelo.Projeto;
 
 /**
@@ -68,7 +67,13 @@ public class ProjetoTest {
 		Entity<String> entity = Entity.entity(xml, MediaType.APPLICATION_XML);
 
         Response response = target.path("/projetos").request().post(entity);
-        Assert.assertEquals("<status>Sucess</status>", response.readEntity(String.class));
+        
+        Assert.assertEquals(201,response.getStatus());
+        
+        String location = response.getHeaderString("Location");
+        String conteudo = client.target(location).request().get(String.class);
+        
+        Assert.assertTrue(conteudo.contains("Alura"));
 		
 	}
 	
