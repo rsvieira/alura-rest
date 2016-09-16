@@ -3,6 +3,7 @@ package br.com.alura.loja.resource;
 import java.net.URI;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -66,6 +67,17 @@ public class CarrinhoResource {
 	// OBS:
 	// usando o curl tendo que passar o Content-Type
 	//	curl -v -H "Content-Type: application/xml" -d "<br.com.alura.loja.modelo.Carrinho>  <produtos>    <br.com.alura.loja.modelo.Produto>      <preco>4000.0</preco>      <id>6237</id>      <nome>Videogame 4</nome>      <quantidade>1</quantidade>    </br.com.alura.loja.modelo.Produto>  </produtos>  <rua>Rua Vergueiro 3185, 8 andar</rua>  <cidade>São Paulo</cidade>  <id>1</id></br.com.alura.loja.modelo.Carrinho>" http://localhost:8080/carrinhos
+	
+	@DELETE
+	@Path("{id}/produtos/{produtoId}")
+	public Response remove(@PathParam("id") long id, @PathParam("produtoId") long produtoId){
+		
+		Carrinho carrinho = new CarrinhoDAO().busca(id);
+		
+		carrinho.remove(produtoId);
+	
+		return Response.ok().build();
+	}
 	
 }
 
