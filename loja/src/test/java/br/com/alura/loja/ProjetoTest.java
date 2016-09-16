@@ -8,6 +8,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.filter.LoggingFilter;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -25,10 +27,16 @@ import br.com.alura.loja.modelo.Projeto;
 public class ProjetoTest {
 
 	private HttpServer server;
+	private Client client;
+	private WebTarget target;
+	private ClientConfig config;
 	
 	@Before
 	public void startaServidor(){
 		server = Servidor.inicializaServidor();
+		config = new ClientConfig(new LoggingFilter());
+		client = ClientBuilder.newClient(config);
+		target = client.target("http://localhost:8080");
 	}
 	
 	@After
@@ -39,11 +47,6 @@ public class ProjetoTest {
 	
 	@Test
 	public void testaUrlProjetos(){
-		
-		Client client = ClientBuilder.newClient();
-		
-		WebTarget target = client.target("http://localhost:8080");
-		
 		String conteudo = target.path("/projetos/1").request().get(String.class);
 		
 		Projeto projeto = (Projeto) new XStream().fromXML(conteudo);
@@ -53,10 +56,6 @@ public class ProjetoTest {
 	
 	@Test
 	public void testandoPOST () {
-		
-		Client client = ClientBuilder.newClient();
-		WebTarget target = client.target("http://localhost:8080");
-		
 		Projeto projeto = new Projeto();
 		projeto.setId(3L);
 		projeto.setNome("Alura");
