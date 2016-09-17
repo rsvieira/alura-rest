@@ -1,2 +1,7 @@
 # casadocodigo-rest
-Curso de WebServices Rest com jaxrs e jersey.
+Curso de WebServices Rest com JAX-RS e Jersey.
+	
+	#XStream
+	#JAXB
+	#LoggingFilter
+
