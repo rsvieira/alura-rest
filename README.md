@@ -1,4 +1,4 @@
-# casadocodigo-rest
+# alura-rest
 Curso de WebServices Rest com JAX-RS e Jersey.
 	
 	#XStream
